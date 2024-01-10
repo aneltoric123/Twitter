@@ -1,0 +1,9 @@
+<h1>All Tweets</h1>
+<%= link_to 'Login', login_path %>
+<%= link_to 'Register', new_user_path %>
+
+<% @tweets.each do |tweet| %>
+  <div>
+    <p><%= tweet.content %></p>
+  </div>
+<% end %>
