@@ -1,13 +1,29 @@
-<h1>Login</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="text-center">Login</h1>
+        </div>
+        <div class="card-body">
+          <%= form_with(url: login_path, class: 'mt-3') do |form| %>
+            <div class="form-group">
+              <%= form.label :email %>
+              <%= form.email_field :email, class: 'form-control', required: true %>
+            </div>
 
-<%= form_with(url: login_path) do |form| %>
-  <%= form.label :email %>
-  <%= form.email_field :email %>
+            <div class="form-group">
+              <%= form.label :password %>
+              <%= form.password_field :password, class: 'form-control', required: true %>
+            </div>
 
-  <%= form.label :password %>
-  <%= form.password_field :password %>
-
-  <%= form.submit 'Login' %>
-<% end %>
-<%= link_to 'Go back to Homepage', root_path, class: 'btn btn-primary' %>
-
+            <%= form.submit 'Login', class: 'btn btn-primary btn-block mt-4' %>
+          <% end %>
+        </div>
+        <div class="card-footer text-center">
+          <%= link_to 'Go back to Homepage', root_path, class: 'btn btn-secondary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

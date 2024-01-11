@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'tweets/index'
   get 'tweets/show'
-  get 'tweets/new'
+  get '/tweets/new', to: 'tweets#new', as: 'new_tweet'
   get 'tweets/edit'
   get 'tweets/create'
   get 'tweets/destory'
@@ -22,5 +22,7 @@ delete '/logout', to: 'sessions#destroy'
 get '/login', to: 'sessions#new'
 # For users (registration)
 resources :users, only: [:new, :create]
+resources :tweets
+resources :sessions, only: [:new, :create, :destroy]
 
 end

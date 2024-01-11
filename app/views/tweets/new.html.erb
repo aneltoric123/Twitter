@@ -1,2 +1,12 @@
-<h1>Tweets#new</h1>
-<p>Find me in app/views/tweets/new.html.erb</p>
+<h1 class="mt-4 mb-4">Create Tweet</h1>
+
+<%= form_with(model: @tweet, url: tweets_path, class: 'mb-4') do |form| %>
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.text_area :content, class: 'form-control', rows: 4, required: true %>
+  </div>
+
+  <%= form.submit 'Create Tweet', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Go back to Homepage', root_path, class: 'btn btn-secondary' %>
