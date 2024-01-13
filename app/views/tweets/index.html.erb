@@ -1,11 +1,10 @@
 <h1 class="mt-4 mb-4">All Tweets</h1>
 
 <div class="container">
-  <% if @logged_in %>
+ 
     <%= link_to 'Create Tweet', new_tweet_path, class: 'btn btn-primary mb-4' %>
-  <% else %>
-    <%= link_to 'Login', login_path, class: 'btn btn-primary mr-2' %>
-    <%= link_to 'Register', new_user_path, class: 'btn btn-success' %>
+    <%= link_to 'Profile', profile_path, class: 'btn btn-primary mr-2' %>
+    <%= link_to 'Logout', logout_path, class: 'btn btn-success' %>
   <% end %>
 
   <% @tweets.each do |tweet| %>

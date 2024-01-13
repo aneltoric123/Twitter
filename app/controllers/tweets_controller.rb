@@ -17,14 +17,14 @@ class TweetsController < ApplicationController
   def create
     @tweet=Tweet.new(tweet_params)
     if @tweet.save
-      redirect_to root_path, notice: 'Tweet was sucessfully made.'
+      redirect_to home_path, notice: 'Tweet was sucessfully made.'
       else
         render :new
       end
   end
   def update
     if @tweet.update(tweet_params)
-      redirect_to root_path, notice: 'Tweet was successfully updated.'
+      redirect_to home_path, notice: 'Tweet was successfully updated.'
     else
       render :edit
     end
@@ -32,7 +32,7 @@ class TweetsController < ApplicationController
 
   def destroy
     @tweet.destroy
-    redirect_to root_path, notice: 'Tweet was successfully deleted.'
+    redirect_to home_path, notice: 'Tweet was successfully deleted.'
   end
 
   private

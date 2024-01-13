@@ -2,9 +2,15 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header bg-success text-white">
-          <h1 class="text-center">Register</h1>
+       
+        <div class="card-header bg-primary text-white">
+          <div class="d-flex align-items-center justify-content-between">
+                <%= image_tag('Logo_of_Twitter.svg.png', alt: 'Twitter Logo', class: 'twitter-logo') %>
+
+            <h1 class="text-center">Register</h1>
+          </div>
         </div>
+
         <div class="card-body">
           <%= form_with(model: @user, url: users_path, class: 'mt-3') do |form| %>
             <div class="form-group">
@@ -30,8 +36,9 @@
             <%= form.submit 'Register', class: 'btn btn-success btn-block mt-4' %>
           <% end %>
         </div>
+
         <div class="card-footer text-center">
-          <%= link_to 'Go back to Homepage', root_path, class: 'btn btn-secondary' %>
+          <%= link_to 'Go back to login', login_path, class: 'btn btn-secondary' %>
         </div>
       </div>
     </div>

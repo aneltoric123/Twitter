@@ -7,9 +7,7 @@ class ApplicationController < ActionController::Base
         nil
       end
     
-      def logged_in?
-        !!current_user
-      end
+      
     
       
     end
