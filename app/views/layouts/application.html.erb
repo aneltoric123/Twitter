@@ -12,7 +12,12 @@
   </head>
 
   <body>
-
+<% if content_for?(:navbar) %>
+       <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <%= yield(:navbar) %>
+      </nav>
+        
+       <% else %>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <a class="navbar-brand text-light" href="/home"><%= image_tag('Logo_of_Twitter.svg.png', alt: 'Twitter Logo', class: 'twitter-logo') %></a>
 
@@ -22,7 +27,8 @@
         <%= link_to 'Create Tweet', new_tweet_path, class: 'nav-link btn btn-info text-light' %>
       </li>
       <li class="nav-item " >
-        <%= link_to 'View Profile', new_tweet_path, class: 'nav-link btn btn-secondary text-light' %>
+        <%= link_to 'View Profile', user_path(current_user.id), class: 'nav-link btn btn-secondary text-light' %>
+ 
       </li>
       <li class="nav-item ">
         <%= link_to 'Messages', new_tweet_path, class: 'nav-link btn btn-warning text-light' %>
@@ -36,7 +42,7 @@
     </li>
   </div>
 </nav>
-
+<% end %>
 <div class="container mt-4">
  
   <%= yield %>

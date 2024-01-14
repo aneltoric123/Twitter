@@ -5,18 +5,37 @@
     <div class="card mt-4">
       <div class="card-header">
         <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
-        <strong><%= tweet.user.username %></strong>
-        <span class="text-muted ml-2">@<%= tweet.user.username %></span>
+        <strong ><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
+        <% if @current_user && @current_user == tweet.user %>
+        
+    <% else %>
          <button type="button" class="btn btn-outline-info btn-sm mr-2">Message</button>
         <button type="button" class="btn btn-outline-secondary btn-sm">Follow</button>
+        <% end %>
       </div>
       <div class="card-body">
         <p class="card-text"><%= tweet.content %></p>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm mr-2">Like</button>
-        <button type="button" class="btn btn-outline-success btn-sm mr-2">Retweet</button>
-       
+       <% if current_user.liked?(tweet) %>
+        <%= link_to unlike_path(tweet), method: :delete do %>
+          <%= image_tag('Liked.svg.png', alt: 'Unlike',class:'like-button') %>
+        <% end %>
+      <% else %>
+        <%= link_to like_path(tweet), method: :post do %>
+          <%= image_tag('like-106.png', alt: 'Like',class:'like-button') %>
+        <% end %>
+      <% end %>
+     <% if current_user.retweeted?(tweet) %>
+        <%= link_to unretweet_path(tweet), method: :delete do %>
+          <%= image_tag('6388036.png', alt: 'Unretweet',class:'retweet-button') %>
+        <% end %>
+      <% else %>
+        <%= link_to retweet_path(tweet), method: :post do %>   
+          <%= image_tag('522027.png', alt: 'Retweet',class:'retweet-button') %>
+        <% end %>
+      <% end %>
+        
       </div>
     </div>
   <% end %>
