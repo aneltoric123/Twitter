@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   
-  resources :tweets
+  resources :tweets do
+    resources :likes, only: [:create, :destroy]
+    resources :retweets, only: [:create, :destroy]
+  end
   resources :users
-  resources :likes, only: [:create, :destroy]
-resources :retweets, only: [:create, :destroy]
+  
 resources :follows, only: [:create, :destroy]
 resources :messages, only: [:index, :create, :show, :destroy]
 

@@ -17,23 +17,25 @@
         <p class="card-text"><%= tweet.content %></p>
       </div>
       <div class="card-footer">
+      <p class="text-muted"><%= time_ago_in_words(tweet.created_at) %> ago</p>
+
        <% if current_user.liked?(tweet) %>
-        <%= link_to unlike_path(tweet), method: :delete do %>
+        <%= link_to tweet_like_path(tweet, tweet.likes.find_by(user: current_user)), method: :delete do %>
           <%= image_tag('Liked.svg.png', alt: 'Unlike',class:'like-button') %>
         <% end %>
       <% else %>
-        <%= link_to like_path(tweet), method: :post do %>
+        <%= link_to tweet_likes_path(tweet), method: :post  do %>
           <%= image_tag('like-106.png', alt: 'Like',class:'like-button') %>
         <% end %>
       <% end %>
      <% if current_user.retweeted?(tweet) %>
-        <%= link_to unretweet_path(tweet), method: :delete do %>
-          <%= image_tag('6388036.png', alt: 'Unretweet',class:'retweet-button') %>
-        <% end %>
-      <% else %>
-        <%= link_to retweet_path(tweet), method: :post do %>   
-          <%= image_tag('522027.png', alt: 'Retweet',class:'retweet-button') %>
-        <% end %>
+        <%= link_to tweet_retweet_path(tweet, tweet.retweets.find_by(user: current_user)), method: :delete do %>
+    <%= image_tag('6388036.png', alt: 'Unretweet', class: 'retweet-button') %>
+  <% end %>
+<% else %>
+  <%= link_to tweet_retweets_path(tweet), method: :post do %>   
+    <%= image_tag('522027.png', alt: 'Retweet', class: 'retweet-button') %>
+  <% end %>
       <% end %>
         
       </div>

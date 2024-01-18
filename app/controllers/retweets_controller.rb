@@ -15,6 +15,6 @@ class RetweetsController < ApplicationController
     private
   
     def find_tweet
-      @tweet = Tweet.find(params[:id])
+      @tweet = Tweet.find(params[:tweet_id])
     end
 end
