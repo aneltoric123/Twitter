@@ -4,3 +4,6 @@ import "controllers"
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require trix
+import "trix"
+import "@rails/actiontext"

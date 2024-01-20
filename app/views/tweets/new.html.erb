@@ -3,7 +3,7 @@
 <%= form_with(model: @tweet, url: tweets_path, class: 'mb-4') do |form| %>
   <div class="form-group">
     <%= form.label :content %>
-    <%= form.text_area :content, class: 'form-control', rows: 4, required: true %>
+    <%= form.rich_text_area :content, class: 'form-control', required: true %>
   </div>
 
   <%= form.submit 'Create Tweet', class: 'btn btn-primary' %>

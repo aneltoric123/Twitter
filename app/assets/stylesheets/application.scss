@@ -1,4 +1,7 @@
 @import "bootstrap";
+@import "trix";
+@import "actiontext";
+
 body{
     background-color: black;
     color:white;
@@ -29,10 +32,34 @@ height: 50px;
     padding: 15px;
     border-bottom: 1px solid #dee2e6;
   }
-  .like-button,.retweet-button{
+  .like-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     height: 25px;
     width: 25px;
   }
-  .text-muted{
+  
+  /* Style for Retweet and Unretweet button */
+  .retweet-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
     
+  }
+  
+  /* Optional: Add margin between buttons */
+  .ml-2 {
+    margin-left: 2px;
+  }
+  .button-container {
+    display: inline-flex; /* Use inline-flex to make children inline */
+  align-items: center; 
+  }
+  .form-group{
+    background-color: white;
   }

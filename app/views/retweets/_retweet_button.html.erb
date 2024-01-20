@@ -1,0 +1,12 @@
+<% if current_user.retweeted?(tweet) %>
+  <%= button_to tweet_unretweet_path(tweet), method: :delete, class: 'retweet-button', remote: true do %>
+    <%= image_tag('6388036.png', alt: 'Unretweet', class: 'retweet-button') %>
+  <% end %>
+<% else %>
+  <%= button_to tweet_retweet_path(tweet), method: :post, class: 'retweet-button', remote: true do %>   
+    <%= image_tag('522027.png', alt: 'Retweet', class: 'retweet-button') %>
+  <% end %>
+<% end %>
+
+<!-- Display Retweet Count -->
+<span class="ml-2"><%= tweet.retweets.count %> Retweets</span>

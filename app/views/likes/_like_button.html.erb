@@ -1,0 +1,12 @@
+<% if current_user.liked?(tweet) %>
+  <%= button_to tweet_unlike_path(tweet), method: :delete, class: 'like-button', remote: true do %>
+    <%= image_tag('Liked.svg.png', alt: 'Unlike', class: 'like-button') %>
+  <% end %>
+<% else %>
+  <%= button_to tweet_like_path(tweet), method: :post, class: 'like-button', remote: true do %>
+    <%= image_tag('like-106.png', alt: 'Like', class: 'like-button') %>
+  <% end %>
+<% end %>
+
+<!-- Display Like Count -->
+<span class="ml-2"><%= tweet.likes.count %> Likes</span>

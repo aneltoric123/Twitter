@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   
   resources :tweets do
-    resources :likes, only: [:create, :destroy]
-    resources :retweets, only: [:create, :destroy]
+    post 'like', to: 'likes#create'
+    delete 'unlike', to: 'likes#destroy'
+    
+    post 'retweet', to: 'retweets#create'
+    delete 'unretweet', to: 'retweets#destroy'
   end
   resources :users
   
@@ -17,6 +20,8 @@ root 'users#new'
   get '/login', to: 'sessions#new'
   get '/home', to: 'tweets#index'
   get '/profile', to: 'users#show'
+  
+
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
