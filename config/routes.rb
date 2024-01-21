@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     
     post 'retweet', to: 'retweets#create'
     delete 'unretweet', to: 'retweets#destroy'
+
+    
   end
   resources :users
-  
 resources :follows, only: [:create, :destroy]
 resources :messages, only: [:index, :create, :show, :destroy]
 
@@ -20,7 +21,7 @@ root 'users#new'
   get '/login', to: 'sessions#new'
   get '/home', to: 'tweets#index'
   get '/profile', to: 'users#show'
-  
+  delete 'tweet', to: 'tweets#destroy'
 
 
   get "up" => "rails/health#show", as: :rails_health_check

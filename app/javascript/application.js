@@ -4,6 +4,12 @@ import "controllers"
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require rails-ujs
+//= require activestorage
+//= require turbolinks
+//= require_tree .
 //= require trix
+//= require_tree ./channels
+//= require_tree ./controllers
 import "trix"
 import "@rails/actiontext"

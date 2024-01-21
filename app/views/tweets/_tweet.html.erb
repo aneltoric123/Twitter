@@ -1,0 +1,22 @@
+<!-- app/views/tweets/_tweet.html.erb -->
+<div class="card mt-4">
+  <div class="card-header">
+    <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
+    <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
+    <% if @current_user && @current_user == tweet.user %>
+  <%= link_to "Edit", edit_tweet_path(tweet), class: "btn btn-outline-warning btn-sm mr-2" %>
+   <%= link_to 'Delete', tweet_path(tweet), method: :delete, class: 'btn btn-danger' %>
+
+<% end %>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= tweet.content %></p>
+  </div>
+  <div class="card-footer">
+    <p class="text-muted"><%= time_ago_in_words(tweet.created_at) %> ago</p>
+    <div class="button-container">
+      <%= render 'likes/like_button', tweet: tweet %>
+      <%= render 'retweets/retweet_button', tweet: tweet %>
+    </div>
+  </div>
+</div>

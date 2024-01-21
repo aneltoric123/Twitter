@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:edit, :update, :destroy]
+  
   def index
     @tweets=Tweet.order(created_at: :desc);
     @user=current_user
@@ -13,6 +14,7 @@ class TweetsController < ApplicationController
   end
 
   def edit
+    @tweet = Tweet.find(params[:id])
   end
 
   def create
@@ -24,16 +26,22 @@ class TweetsController < ApplicationController
       end
   end
   def update
-    if @tweet.update(tweet_params)
-      redirect_to home_path, notice: 'Tweet was successfully updated.'
-    else
-      render :edit
-    end
+    @tweet = current_user.tweets.find(params[:id])
+  if @tweet.update(tweet_params)
+    redirect_to home_path, notice: 'Tweet was successfully updated.'
+  else
+    render :edit
+  end
   end
 
   def destroy
+    @tweet = tweets.find(params[:id])
     @tweet.destroy
-    redirect_to home_path, notice: 'Tweet was successfully deleted.'
+    if tweet.destroy(tweet_params)
+      redirect_to home_path, notice: 'Tweet was successfully deleted.'
+    else 
+      render :destroy
+      end
   end
 
   private

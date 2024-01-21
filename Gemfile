@@ -21,12 +21,8 @@ gem "importmap-rails"
 
 gem 'actiontext', '~> 7.1.2'
 
-
-
-gem 'image_processing', '~> 1.2'
-
 gem 'vips'
-
+gem 'mini_magick'
 
 gem 'sassc-rails'
 

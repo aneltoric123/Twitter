@@ -2,27 +2,9 @@
 
 <div class="container">
   <% @tweets.each do |tweet| %>
-    <div class="card mt-4">
-      <div class="card-header">
-        <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
-        <strong ><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
-        <% if @current_user && @current_user == tweet.user %>
-        
-    <% else %>
-         <button type="button" class="btn btn-outline-info btn-sm mr-2">Message</button>
-        <button type="button" class="btn btn-outline-secondary btn-sm">Follow</button>
-        <% end %>
-      </div>
-      <div class="card-body">
-        <p class="card-text"><%= tweet.content %></p>
-      </div>
-      <div class="card-footer">
+    <%= render 'tweets/tweet', tweet: tweet %>
+    <div class="card-footer">
       <p class="text-muted"><%= time_ago_in_words(tweet.created_at) %> ago</p>
-<div class="button-container">
-       <%= render 'likes/like_button', tweet: tweet %>
-     <%= render 'retweets/retweet_button', tweet: tweet %>
-        </div>
-      </div>
     </div>
   <% end %>
 </div>
