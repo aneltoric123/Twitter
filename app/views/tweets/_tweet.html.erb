@@ -4,8 +4,8 @@
     <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
     <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
     <% if @current_user && @current_user == tweet.user %>
-  <%= link_to "Edit", edit_tweet_path(tweet), class: "btn btn-outline-warning btn-sm mr-2" %>
-   <%= link_to 'Delete', tweet_path(tweet), method: :delete, class: 'btn btn-danger' %>
+   <%= button_to "Edit", edit_tweet_path(tweet), method: :get, class: "btn btn-outline-warning btn-sm mr-2" %>
+      <%= button_to 'Delete', tweet_path(tweet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 
 <% end %>
   </div>

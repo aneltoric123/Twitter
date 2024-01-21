@@ -35,13 +35,12 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    @tweet = tweets.find(params[:id])
+    @tweet = current_user.tweets.find(params[:id])
+    @tweet.likes.destroy_all 
+    @tweet.retweets.destroy_all
     @tweet.destroy
-    if tweet.destroy(tweet_params)
-      redirect_to home_path, notice: 'Tweet was successfully deleted.'
-    else 
-      render :destroy
-      end
+    redirect_to home_path, notice: 'Tweet was successfully deleted.'
+    
   end
 
   private

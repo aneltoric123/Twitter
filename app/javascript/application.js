@@ -11,5 +11,6 @@ import "controllers"
 //= require trix
 //= require_tree ./channels
 //= require_tree ./controllers
+//= require action_text
 import "trix"
 import "@rails/actiontext"

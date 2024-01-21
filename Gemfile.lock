@@ -290,16 +290,12 @@ GEM
     thor (1.3.0)
     tilt (2.3.0)
     timeout (0.4.1)
-    trix (0.10.1)
-      rails
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    vips (8.12.2)
-      ffi (~> 1.12)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -318,7 +314,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  actiontext (~> 7.1.2)
   activeadmin
   bcrypt (~> 3.1.7)
   bootsnap
@@ -330,7 +325,6 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kredis
-  mini_magick
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.2)
@@ -339,10 +333,8 @@ DEPENDENCIES
   selenium-webdriver
   sprockets-rails
   stimulus-rails
-  trix
   turbo-rails
   tzinfo-data
-  vips
   web-console
 
 RUBY VERSION

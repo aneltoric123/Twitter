@@ -1,2 +1,12 @@
-<h1>Tweets#edit</h1>
-<p>Find me in app/views/tweets/edit.html.erb</p>
+<h1 class="mt-4 mb-4">Edit Tweet</h1>
+
+<%= form_with(model: @tweet, url: tweet_path(@tweet), method: :patch, class: 'mb-4') do |form| %>
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.rich_text_area :content, class: 'form-control', required: true %>
+  </div>
+
+  <%= form.submit 'Update Tweet', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Cancel', home_path, class: 'btn btn-secondary' %>
