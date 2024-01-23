@@ -3,8 +3,5 @@
 <div class="container">
   <% @tweets.each do |tweet| %>
     <%= render 'tweets/tweet', tweet: tweet %>
-    <div class="card-footer">
-      <p class="text-muted"><%= time_ago_in_words(tweet.created_at) %> ago</p>
-    </div>
   <% end %>
 </div>

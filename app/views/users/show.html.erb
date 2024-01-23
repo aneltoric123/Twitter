@@ -1,6 +1,23 @@
 <h1 class="mt-4 mb-4"><%= @user.username %>'s profile</h1>
 
 <div class="container">
+  <% if @current_user && @current_user == @user %>
+   
+    <div class="card mt-4">
+      <div class="card-header">
+        <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
+        <strong><%= @user.username %></strong>
+        <p>Email: <%= @user.email %></p>
+      </div>
+      <div class="card-body">
+        
+        <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-outline-warning btn-sm mr-2' %>
+        <%= button_to 'Delete Account', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      </div>
+    </div>
+  <% end %>
+
+  
   <% @tweets.each do |tweet| %>
     <%= render 'tweets/tweet', tweet: tweet %>
   <% end %>

@@ -4,10 +4,16 @@
     <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
     <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
     <% if @current_user && @current_user == tweet.user %>
-   <%= button_to "Edit", edit_tweet_path(tweet), method: :get, class: "btn btn-outline-warning btn-sm mr-2" %>
+      <%= button_to "Edit", edit_tweet_path(tweet), method: :get, class: "btn btn-outline-warning btn-sm mr-2" %>
       <%= button_to 'Delete', tweet_path(tweet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-
-<% end %>
+    <% else %>
+      <% if @current_user.following?(tweet.user) %>
+        <%= button_to 'Unfollow', follows_path(followed_id: tweet.user.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+        <%= link_to 'Message', new_message_path(recipient_id: tweet.user.id), class: 'btn btn-success btn-sm' %>
+      <% else %>
+        <%= button_to 'Follow', follows_path(followed_id: tweet.user.id), method: :post, class: 'btn btn-primary btn-sm' %>
+      <% end %>
+    <% end %>
   </div>
   <div class="card-body">
     <p class="card-text"><%= tweet.content %></p>

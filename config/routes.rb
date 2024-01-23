@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     
   end
   resources :users
-resources :follows, only: [:create, :destroy]
-resources :messages, only: [:index, :create, :show, :destroy]
+resources :follows
+resources :messages
 
  
 root 'users#new'
