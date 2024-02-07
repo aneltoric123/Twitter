@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   ActiveAdmin.routes(self)
   
   resources :tweets do
@@ -11,12 +12,16 @@ Rails.application.routes.draw do
     
   end
   resources :users
+ 
+
   resources :follows, only: [:create, :destroy]
 
   resources :messages
 
  
 root 'users#new'
+get '/auth/google_oauth2', to: 'sessions#google_oauth2'
+  get '/auth/failure', to: redirect('/')
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'

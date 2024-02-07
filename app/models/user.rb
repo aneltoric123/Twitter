@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+ 
     has_secure_password
     
     has_many :tweets
@@ -9,16 +10,16 @@ class User < ApplicationRecord
 
   has_many :retweeted_tweets, through: :retweets, source: :tweet
 
-  has_many :active_follows, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy
-  has_many :following, through: :active_follows, source: :followed
-  
 
-  # Check if the user is following another user
-  def following?(other_user)
-    following.include?(other_user)
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
   end
-
-
 
   def liked?(tweet)
     liked_tweets.include?(tweet)

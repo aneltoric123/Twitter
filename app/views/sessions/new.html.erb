@@ -8,8 +8,7 @@
         <!-- Twitter Header -->
         <div class="card-header bg-primary text-white">
           <div class="d-flex align-items-center justify-content-between">
-                <%= image_tag('Logo_of_Twitter.svg.png', alt: 'Twitter Logo', class: 'twitter-logo') %>
-
+            <%= image_tag('Logo_of_Twitter.svg.png', alt: 'Twitter Logo', class: 'twitter-logo') %>
             <h1 class="text-center">Login</h1>
           </div>
         </div>
@@ -27,6 +26,13 @@
             </div>
 
             <%= form.submit 'Login', class: 'btn btn-primary btn-block mt-4' %>
+          <% end %>
+
+         
+          <%= link_to '/auth/google_oauth2', class: 'google-auth-button2' do %>
+
+          <p>Login in with google!</p>
+            <%= image_tag('btn_google_signin_dark_normal_web.png', alt: 'Sign in with Google',class: 'google-auth-button') %>
           <% end %>
         </div>
 
