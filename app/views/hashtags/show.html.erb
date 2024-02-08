@@ -1,0 +1,9 @@
+<h1>#<%=  params[:name] %></h1>
+
+<p>Total tweets: <%= @tweets.size %></p>
+
+<ul>
+  <% @tweets.each do |tweet| %>
+    <li><%= render 'tweets/tweet', tweet: tweet %></li>
+  <% end %>
+</ul>

@@ -1,6 +1,6 @@
 # app/controllers/replies_controller.rb
 class RepliesController < ApplicationController
-
+  before_action :set_reply, only: [:destroy]
   def create
     @tweet = Tweet.find(params[:tweet_id])
     @reply = @tweet.replies.build(reply_params)
@@ -12,18 +12,11 @@ class RepliesController < ApplicationController
       redirect_to home_path
     end
   end
-  def update
-    if @reply.update(reply_params)
-      redirect_to tweet_path(@reply.tweet), notice: 'Reply was successfully updated.'
-    else
-      render :edit
+    def destroy
+      @reply.destroy
+    redirect_to home_path
     end
-  end
-
-  def destroy
-    @reply.destroy
-    redirect_to tweet_path(@reply.tweet), notice: 'Reply was successfully deleted.'
-  end
+  
 
   private
 

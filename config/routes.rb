@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   
   resources :tweets do
-    resources :replies, only: [:create, :edit, :update, :destroy]
+    resources :replies, only: [:create, :destroy]
+    resources :hashtags,only: [:show]
     post 'like', to: 'likes#create'
     delete 'unlike', to: 'likes#destroy'
     post 'create_reply', to: 'replies#create'
@@ -14,8 +15,7 @@ Rails.application.routes.draw do
     
   end
   resources :users
-  resources :messages
-
+ 
  
 root 'users#new'
 get '/auth/google_oauth2', to: 'sessions#google_oauth2'
@@ -26,6 +26,7 @@ get '/auth/google_oauth2', to: 'sessions#google_oauth2'
   get '/home', to: 'tweets#index'
   get '/profile', to: 'users#show'
   
+  get '/hashtags/:name', to: 'hashtags#show', as: 'hashtag_tweets'
 
   
 
