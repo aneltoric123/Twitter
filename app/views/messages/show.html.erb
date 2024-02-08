@@ -1,0 +1,17 @@
+<!-- app/views/messages/show.html.erb -->
+<h1>Messages with <%= @recipient.username %></h1>
+
+<div class="container">
+  <%= render 'conversation', messages: @messages %>
+
+  
+  <h2>New Message</h2>
+  <%= form_with(model: @message, url: messages_path) do |form| %>
+    <div class="form-group">
+      <%= form.label :content, 'Message' %>
+      <%= form.text_area :content, class: 'form-control', rows: 3 %>
+    </div>
+    <%= form.hidden_field :recipient_id, value: @recipient.id %>
+    <%= form.submit 'Send', class: 'btn btn-primary' %>
+  <% end %>
+</div>

@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   has_many :retweeted_tweets, through: :retweets, source: :tweet
 
+ has_many :sent_messages, class_name: "Message", foreign_key: "sender_id", dependent: :destroy
+  has_many :received_messages, class_name: "Message", foreign_key: "recipient_id", dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

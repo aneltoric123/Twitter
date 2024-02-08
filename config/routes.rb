@@ -27,6 +27,8 @@ get '/auth/google_oauth2', to: 'sessions#google_oauth2'
   get '/login', to: 'sessions#new'
   get '/home', to: 'tweets#index'
   get '/profile', to: 'users#show'
+  get '/users/:id/messages', to: 'users#show_messages', as: 'show_messages'
+
   
 
 

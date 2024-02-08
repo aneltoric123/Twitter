@@ -68,3 +68,27 @@ height: 50px;
     width:50px;
     height: 50px;
   }
+  .conversation-box {
+    height: 300px;
+    overflow-y: scroll;
+  }
+  
+  .message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .sender {
+    background-color: #DCF8C6;
+    float: right;
+  }
+  
+  .recipient {
+    background-color: #E5E5E5;
+    float: left;
+  }
+  
+  .message-form {
+    margin-top: 20px;
+  }

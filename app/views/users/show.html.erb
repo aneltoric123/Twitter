@@ -1,8 +1,14 @@
+<!-- app/views/users/show.html.erb -->
 <h1 class="mt-4 mb-4"><%= @user.username %>'s profile</h1>
 
 <div class="container">
+  <% unless @current_user == @user %>
+    <div class="mt-4">
+      <%= link_to 'Message User',show_messages_path(@user), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
   <% if @current_user && @current_user == @user %>
-   
     <div class="card mt-4">
       <div class="card-header">
         <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
@@ -10,15 +16,39 @@
         <p>Email: <%= @user.email %></p>
       </div>
       <div class="card-body">
-        
         <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-outline-warning btn-sm mr-2' %>
         <%= button_to 'Delete Account', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       </div>
     </div>
   <% end %>
 
-  
-  <% @tweets.each do |tweet| %>
-    <%= render 'tweets/tweet', tweet: tweet %>
-  <% end %>
+  <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="user-tweets-tab" data-toggle="tab" href="#user-tweets" role="tab" aria-controls="user-tweets" aria-selected="true">User Tweets</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="liked-tweets-tab" data-toggle="tab" href="#liked-tweets" role="tab" aria-controls="liked-tweets" aria-selected="false">Liked Tweets</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="retweeted-tweets-tab" data-toggle="tab" href="#retweeted-tweets" role="tab" aria-controls="retweeted-tweets" aria-selected="false">Retweeted Tweets</a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-4" id="myTabContent">
+    <div class="tab-pane fade show active" id="user-tweets" role="tabpanel" aria-labelledby="user-tweets-tab">
+      <% @tweets.each do |tweet| %>
+        <%= render 'tweets/tweet', tweet: tweet %>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="liked-tweets" role="tabpanel" aria-labelledby="liked-tweets-tab">
+      <% @liked_tweets.each do |tweet| %>
+        <%= render 'tweets/tweet', tweet: tweet %>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="retweeted-tweets" role="tabpanel" aria-labelledby="retweeted-tweets-tab">
+      <% @retweeted_tweets.each do |tweet| %>
+        <%= render 'tweets/tweet', tweet: tweet %>
+      <% end %>
+    </div>
+  </div>
 </div>

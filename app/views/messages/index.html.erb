@@ -1,0 +1,10 @@
+<h1>Messages</h1>
+<ul>
+  <% @messages.each do |message| %>
+    <li>
+      <strong>From:</strong> <%= message.sender.username %><br>
+      <strong>Subject:</strong> <%= message.subject %><br>
+      <%= link_to 'View', message_path(message) %>
+    </li>
+  <% end %>
+</ul>

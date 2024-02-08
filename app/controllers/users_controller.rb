@@ -4,11 +4,15 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @tweets = @user.tweets
-    @likes=@user.likes
-    @retweets=@user.retweets
+    @liked_tweets=@user.liked_tweets.order(created_at: :desc);
+    @retweeted_tweets=@user.retweeted_tweets.order(created_at: :desc);
     @current_user = current_user
   end
-
+  def show_messages
+    @other_user = User.find(params[:id])
+    @current_user = current_user
+  @messages = Message.between(@current_user, @other_user)
+  end
   def new
     @user = User.new
   end
