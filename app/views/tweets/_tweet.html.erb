@@ -7,7 +7,7 @@
       <%= button_to "Edit", edit_tweet_path(tweet), method: :get, class: "btn btn-outline-warning btn-sm mr-2" %>
       <%= button_to 'Delete', tweet_path(tweet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
     <% else %>
-      <%= link_to "Message", new_message_path(recipient_id: tweet.user.id), class: "btn btn-outline-warning btn-sm mr-2" %>
+     
     <% end %>
   </div>
   <div class="card-body">
@@ -18,6 +18,26 @@
     <div class="button-container">
       <%= render 'likes/like_button', tweet: tweet %>
       <%= render 'retweets/retweet_button', tweet: tweet %>
+      
     </div>
+    <hr>
+    <strong><%= tweet.reply_count %> Replies</strong>
+    <div class="replies mt-3">
+  <% tweet.replies.each do |reply| %>
+    <div class="reply">
+      <strong><%= reply.user.username %>:</strong>
+      <%= reply.content %>
+      <p class="text-muted"><%= time_ago_in_words(reply.created_at) %> ago</p>
+       <% if @current_user == reply.user %>
+   <%= link_to 'Edit', edit_tweet_reply_path(reply.tweet, reply) %>
+    <%= link_to 'Delete', tweet_reply_path(reply.tweet, reply), method: :delete%>
+  <% end %>
+      
+    </div>
+    <hr>
+  <% end %>
+</div>
+     <%= render 'replies/new', tweet: tweet %>
+     
   </div>
 </div>

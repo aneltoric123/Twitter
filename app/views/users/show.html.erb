@@ -4,7 +4,7 @@
 <div class="container">
   <% unless @current_user == @user %>
     <div class="mt-4">
-      <%= link_to 'Message User',show_messages_path(@user), class: 'btn btn-primary' %>
+      
     </div>
   <% end %>
 
@@ -38,16 +38,19 @@
     <div class="tab-pane fade show active" id="user-tweets" role="tabpanel" aria-labelledby="user-tweets-tab">
       <% @tweets.each do |tweet| %>
         <%= render 'tweets/tweet', tweet: tweet %>
+        
       <% end %>
     </div>
     <div class="tab-pane fade" id="liked-tweets" role="tabpanel" aria-labelledby="liked-tweets-tab">
       <% @liked_tweets.each do |tweet| %>
         <%= render 'tweets/tweet', tweet: tweet %>
+         
       <% end %>
     </div>
     <div class="tab-pane fade" id="retweeted-tweets" role="tabpanel" aria-labelledby="retweeted-tweets-tab">
       <% @retweeted_tweets.each do |tweet| %>
         <%= render 'tweets/tweet', tweet: tweet %>
+        
       <% end %>
     </div>
   </div>
