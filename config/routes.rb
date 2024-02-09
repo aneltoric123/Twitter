@@ -25,7 +25,7 @@ get '/auth/google_oauth2', to: 'sessions#google_oauth2'
   get '/login', to: 'sessions#new'
   get '/home', to: 'tweets#index'
   get '/profile', to: 'users#show'
-  
+  get '/trending', to: 'trending#index'
   get '/hashtags/:name', to: 'hashtags#show', as: 'hashtag_tweets'
 
   
