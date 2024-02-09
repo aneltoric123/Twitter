@@ -1,0 +1,57 @@
+<!-- app/views/messages/new.html.erb -->
+<div class="container mt-4">
+  <h1 class="mb-4">Conversation with <%= @recipient.username %></h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          Previous Messages
+        </div>
+        <div class="card-body messages-container">
+          <% if @messages.present? %>
+            <% @messages.each do |message| %>
+              <% if message.sender_id == current_user.id %>
+                <div class="message current-user">
+                  <p><%= message.content %></p>
+                  <p class="timestamp"><%= time_ago_in_words(message.created_at) %> ago</p>
+                </div>
+              <% else %>
+                <div class="message other-user">
+                  <p><%= message.content %></p>
+                  <p class="timestamp"><%= time_ago_in_words(message.created_at) %> ago</p>
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p class="text-muted">No previous messages</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          New Message
+        </div>
+        <div class="card-body">
+          <%= form_with(model: @message, url: messages_path) do |form| %>
+            <%= form.hidden_field :recipient_id, value: @recipient.id %>
+
+            <div class="form-group">
+              <%= form.label :content, class: "font-weight-bold" %>
+              <%= form.text_area :content, class: "form-control", rows: 3 %>
+            </div>
+
+            <div class="form-group">
+              <%= form.submit "Send Message", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

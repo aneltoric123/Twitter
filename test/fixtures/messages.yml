@@ -4,8 +4,10 @@ one:
   sender: one
   recipient: one
   content: MyText
+  read_at: 2024-02-09 13:55:17
 
 two:
   sender: two
   recipient: two
   content: MyText
+  read_at: 2024-02-09 13:55:17

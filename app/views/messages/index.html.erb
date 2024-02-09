@@ -1,0 +1,9 @@
+<div class="container mt-4">
+  <h1>All Conversations</h1>
+
+  <div class="list-group">
+    <% @conversations.each do |conversation| %>
+      <%= link_to conversation.recipient.username, new_message_path(recipient_id: conversation.recipient_id), class: "list-group-item list-group-item-action" %>
+    <% end %>
+  </div>
+</div>

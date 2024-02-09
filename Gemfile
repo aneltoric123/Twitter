@@ -16,6 +16,7 @@ gem 'activeadmin'
 gem "puma", ">= 5.0"
 
 gem 'omniauth-google-oauth2'
+gem 'nokogiri'
 
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

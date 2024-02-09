@@ -36,13 +36,17 @@ class TweetsController < ApplicationController
 
   def destroy
     @tweet = current_user.tweets.find(params[:id])
+    @tweet.tweet_hashtags.destroy_all
+    @tweet.replies.destroy_all
     @tweet.likes.destroy_all 
     @tweet.retweets.destroy_all
     @tweet.destroy
     redirect_to home_path, notice: 'Tweet was successfully deleted.'
     
   end
-
+  def following
+    @following_tweets = current_user.followed_users.map(&:tweets).flatten.sort_by(&:created_at).reverse
+  end
   private
 
   def set_tweet

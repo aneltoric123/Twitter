@@ -72,23 +72,30 @@ height: 50px;
     height: 300px;
     overflow-y: scroll;
   }
+  .messages-container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
   
   .message {
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
   }
   
-  .sender {
-    background-color: #DCF8C6;
-    float: right;
+  .current-user {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+    align-self: flex-end;
   }
   
-  .recipient {
-    background-color: #E5E5E5;
-    float: left;
+  .other-user {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    align-self: flex-start;
   }
   
-  .message-form {
-    margin-top: 20px;
+  .timestamp {
+    font-size: 12px;
+    color: #666;
   }

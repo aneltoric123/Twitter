@@ -11,11 +11,14 @@ Rails.application.routes.draw do
     post 'create_reply', to: 'replies#create'
     post 'retweet', to: 'retweets#create'
     delete 'unretweet', to: 'retweets#destroy'
-
-    
   end
-  resources :users
- 
+  resources :users do
+    member do
+      post 'follow'
+      delete 'unfollow'
+    end
+  end
+  resources :messages
  
 root 'users#new'
 get '/auth/google_oauth2', to: 'sessions#google_oauth2'
@@ -27,9 +30,6 @@ get '/auth/google_oauth2', to: 'sessions#google_oauth2'
   get '/profile', to: 'users#show'
   get '/trending', to: 'trending#index'
   get '/hashtags/:name', to: 'hashtags#show', as: 'hashtag_tweets'
-
-  
-
-
+  get 'following_tweets', to: 'tweets#following'
   get "up" => "rails/health#show", as: :rails_health_check
 end

@@ -12,7 +12,27 @@ class User < ApplicationRecord
 
  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id", dependent: :destroy
   has_many :received_messages, class_name: "Message", foreign_key: "recipient_id", dependent: :destroy
+ 
+  has_many :followings, foreign_key: :follower_id, dependent: :destroy
+  has_many :followed_users, through: :followings, source: :followed
 
+  has_many :followings, foreign_key: :follower_id, dependent: :destroy
+  has_many :followed_users, through: :followings, source: :followed
+
+  has_many :reverse_followings, foreign_key: :followed_id, class_name: 'Following', dependent: :destroy
+  has_many :followers, through: :reverse_followings, source: :follower
+
+  def follow(user)
+    followed_users << user unless self == user || followed_users.include?(user)
+  end
+
+  def unfollow(user)
+    followed_users.delete(user)
+  end
+
+  def following?(user)
+    followed_users.include?(user)
+  end
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
@@ -21,6 +41,11 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
     end
+  end
+  def conversations
+    sent_recipients = Message.where(sender_id: self.id).pluck(:recipient_id)
+    received_senders = Message.where(recipient_id: self.id).pluck(:sender_id)
+    User.where(id: (sent_recipients + received_senders).uniq)
   end
 
   def liked?(tweet)

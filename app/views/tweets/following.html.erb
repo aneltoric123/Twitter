@@ -1,0 +1,5 @@
+<h1>Following Tweets</h1>
+
+<% @following_tweets.each do |tweet| %>
+  <%= render 'tweets/tweet', tweet: tweet %>
+<% end %>

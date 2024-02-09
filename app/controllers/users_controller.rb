@@ -29,14 +29,26 @@ def destroy
   if @user
     @user.tweets.destroy_all
     @user.likes.destroy_all
+    @user.replies.destroy_all
+    @user.follow.destroy_all
+    @user.following.destroy_all
+    @user.messages.destroy_all
     @user.retweets.destroy_all
     @user.destroy
     redirect_to root_path
 end
 end
-  def edit
-   
-  end
+def follow
+  @user = User.find(params[:id])
+  current_user.follow(@user)
+  redirect_to @user
+end
+
+def unfollow
+  @user = User.find(params[:id])
+  current_user.unfollow(@user)
+  redirect_to @user
+end
 
   def update
     if @user.update(user_params)

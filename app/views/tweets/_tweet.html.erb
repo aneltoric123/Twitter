@@ -1,50 +1,47 @@
-<!-- app/views/tweets/show.html.erb -->
-<div class="card mt-4">
-  <div class="card-header">
-    <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
-    <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
-    <% if @current_user && @current_user == tweet.user %>
-      <%= button_to "Edit", edit_tweet_path(tweet), method: :get, class: "btn btn-outline-warning btn-sm mr-2" %>
-      <%= button_to 'Delete', tweet_path(tweet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-    <% end %>
-  </div>
-  <div class="card-body">
-    <p class="card-text">
-      <% if tweet.content.present? %>
-        <% tweet_content = tweet.content.body.to_plain_text %>
-        <% words = tweet_content.split(/\s+/) %>
-        <% tweet_content_with_links = words.map do |word| %>
-          <% if word.start_with?('#') %>
-           <%= link_to word, hashtag_tweets_path(name: word.delete('#')) %>
-          <% else %>
-            <%= word %>
-          <% end %>
-        <% end.join(' ').html_safe %>
-        <%= tweet_content_with_links %>
+  <!-- app/views/tweets/show.html.erb -->
+  <div class="card mt-4">
+    <div class="card-header">
+      <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
+      <strong><%= link_to tweet.user.username, user_path(tweet.user) %></strong>
+      <% if @current_user && @current_user != tweet.user %>
+       <% if @current_user.following?(tweet.user) %>
+        <%= button_to 'Unfollow', unfollow_user_path(tweet.user), method: :delete, class: 'btn btn-danger btn-sm float-right' %>
+      <% else %>
+        <%= button_to 'Follow', follow_user_path(tweet.user), method: :post, class: 'btn btn-primary btn-sm float-right' %>
       <% end %>
-    </p>
-  </div>
-  <div class="card-footer">
-    <p class="text-muted"><%= time_ago_in_words(tweet.created_at) %> ago</p>
-    <div class="button-container">
-      <%= render 'likes/like_button', tweet: tweet %>
-      <%= render 'retweets/retweet_button', tweet: tweet %>
-    </div>
-    <hr>
-    <strong><%= tweet.reply_count %> Replies</strong>
-    <div class="replies mt-3">
-      <% tweet.replies.each do |reply| %>
-        <div class="reply">
-          <strong><%= reply.user.username %>:</strong>
-          <%= reply.content %>
-          <p class="text-muted"><%= time_ago_in_words(reply.created_at) %> ago</p>
-          <% if @current_user == reply.user %>
-            <%= button_to 'Delete', tweet_reply_path(tweet, reply), method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-        </div>
-        <hr>
+        <%= link_to "Message", new_message_path(recipient_id: tweet.user.id), class: "btn btn-primary btn-sm mr-2" %>
+      <% end %>
+      <% if @current_user && @current_user == tweet.user %>
+        <%= button_to "Edit", edit_tweet_path(tweet), method: :get, class: "btn btn-outline-warning btn-sm mr-2" %>
+        <%= button_to 'Delete', tweet_path(tweet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       <% end %>
     </div>
-    <%= render 'replies/new', tweet: tweet %>
+    <div class="card-body">
+      <p class="card-text">
+         <%= render_tweet_content(tweet.content) %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <p class="text-muted"><%= time_ago_in_words(tweet.created_at) %> ago</p>
+      <div class="button-container">
+        <%= render 'likes/like_button', tweet: tweet %>
+        <%= render 'retweets/retweet_button', tweet: tweet %>
+      </div>
+      <hr>
+      <strong><%= tweet.reply_count %> Replies</strong>
+      <div class="replies mt-3">
+        <% tweet.replies.each do |reply| %>
+          <div class="reply">
+            <strong><%= reply.user.username %>:</strong>
+            <%= reply.content %>
+            <p class="text-muted"><%= time_ago_in_words(reply.created_at) %> ago</p>
+            <% if @current_user == reply.user %>
+              <%= button_to 'Delete', tweet_reply_path(tweet, reply), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+      <%= render 'replies/new', tweet: tweet %>
+    </div>
   </div>
-</div>
