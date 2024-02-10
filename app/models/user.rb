@@ -5,6 +5,7 @@ class User < ApplicationRecord
     has_many :tweets
     has_many :retweets
     has_many :likes
+    has_many :replies, dependent: :destroy
     
   has_many :liked_tweets, through: :likes, source: :tweet
 
@@ -25,7 +26,7 @@ class User < ApplicationRecord
   def follow(user)
     followed_users << user unless self == user || followed_users.include?(user)
   end
-
+  
   def unfollow(user)
     followed_users.delete(user)
   end
@@ -50,6 +51,9 @@ class User < ApplicationRecord
 
   def liked?(tweet)
     liked_tweets.include?(tweet)
+  end
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "email", "id", "id_value", "password_digest", "updated_at", "username"]
   end
 
 

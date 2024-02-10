@@ -25,19 +25,25 @@ class UsersController < ApplicationController
       render :new
     end
   end
-def destroy
-  if @user
-    @user.tweets.destroy_all
-    @user.likes.destroy_all
-    @user.replies.destroy_all
-    @user.follow.destroy_all
-    @user.following.destroy_all
-    @user.messages.destroy_all
-    @user.retweets.destroy_all
-    @user.destroy
-    redirect_to root_path
-end
-end
+  def destroy
+    @user = User.find(params[:id])
+    if @user
+      @user.likes.destroy_all
+      @user.replies.destroy_all
+      @user.retweets.destroy_all
+      @user.tweets.destroy_all
+      @user.followers.each do |follower|
+        follower.unfollow(@user)
+      end
+      @user.followed_users.each do |followed_user|
+        @user.unfollow(followed_user)
+      end
+      @user.destroy
+      redirect_to root_path, notice: 'User account was successfully deleted.'
+    else
+      redirect_to root_path, alert: 'User account not found.'
+    end
+  end
 def follow
   @user = User.find(params[:id])
   current_user.follow(@user)

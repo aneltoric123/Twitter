@@ -2,70 +2,46 @@
 <h1 class="mt-4 mb-4"><%= @user.username %>'s profile</h1>
 
 <div class="container">
-  <% unless @current_user == @user %>
-    <div class="mt-4">
-      <% if @current_user.following?(@user) %>
-        <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete, class: 'btn btn-danger' %>
-      <% else %>
-        <%= button_to 'Follow', follow_user_path(@user), method: :post, class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-  <% end %>
+ <% unless @current_user == @user %>
+  <div class="mt-4">
+    <% if @current_user.following?(@user) %>
+      <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete, class: 'btn btn-danger' %>
+      <%= link_to "Message", new_message_path(recipient_id: @user.id), class: "btn btn-primary btn-sm mr-2" %>
+    <% else %>
+      <%= button_to 'Follow', follow_user_path(@user), method: :post, class: 'btn btn-primary' %>
+      <%= link_to "Message", new_message_path(recipient_id: @user.id), class: "btn btn-primary btn-sm mr-2" %>
+    <% end %>
+  </div>
+<% end %>
 
   <div class="card mt-4">
     <div class="card-header">
       <img src="https://placekitten.com/50/50" alt="User Avatar" class="rounded-circle mr-2">
       <strong><%= @user.username %></strong>
+       <% if @current_user==@user %>
       <p>Email: <%= @user.email %></p>
     </div>
+   
     <div class="card-body">
       <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-outline-warning btn-sm mr-2' %>
       <%= button_to 'Delete Account', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
     </div>
+    <%end %>
     <div class="card-footer">
   <p>
     Following: 
     <span class="follow-count" data-type="following"><%= @user.followed_users.count %></span>
-    <div class="follow-list" style="display: none;">
-      <ul>
-        <% @user.followed_users.each do |user| %>
-          <li><%= user.username %></li>
-        <% end %>
-      </ul>
-    </div>
+   
   </p>
   <p>
     Followers: 
     <span class="follow-count" data-type="followers"><%= @user.followers.count %></span>
-    <div class="follow-list" style="display: none;">
-      <ul>
-        <% @user.followers.each do |user| %>
-          <li><%= user.username %></li>
-        <% end %>
-      </ul>
-    </div>
+  
   </p>
 </div>
   </div>
-   <script >
-    document.addEventListener("DOMContentLoaded", function() {
-  const followCounts = document.querySelectorAll(".follow-count");
-
-  followCounts.forEach(function(followCount) {
-    followCount.addEventListener("click", function() {
-      const type = this.dataset.type;
-      const followList = document.querySelector(`.follow-list[data-type='${type}']`);
-      
-      if (followList) {
-        if (followList.style.display === "none") {
-          followList.style.display = "block";
-        } else {
-          followList.style.display = "none";
-        }
-      }
-    });
-  });
-}); </script>
+ 
+  
 
   <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
     <li class="nav-item">

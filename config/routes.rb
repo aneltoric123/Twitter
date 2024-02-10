@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  get 'replies/create'
-  
   ActiveAdmin.routes(self)
-  
+  get 'replies/create'
   resources :tweets do
     resources :replies, only: [:create, :destroy]
     resources :hashtags,only: [:show]

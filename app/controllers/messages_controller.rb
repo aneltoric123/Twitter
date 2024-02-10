@@ -5,7 +5,8 @@ class MessagesController < ApplicationController
     def new
         @recipient = User.find(params[:recipient_id])
         @message = Message.new
-        @messages = Message.where(sender_id: [current_user.id, @recipient.id], recipient_id: [current_user.id, @recipient.id]).order(:created_at)
+        @messages = Message.where(sender_id: current_user.id, recipient_id: @recipient.id).or(Message.where(sender_id: @recipient.id, recipient_id: current_user.id)).order(:created_at)
+
       end
   
     def create

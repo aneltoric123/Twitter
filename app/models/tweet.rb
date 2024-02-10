@@ -18,4 +18,10 @@ class Tweet < ApplicationRecord
   def reply_count
     replies.count
   end
+  def self.ransackable_attributes(auth_object = nil)
+    ["content", "created_at", "id", "updated_at", "user_id"]
+  end
+  def self.ransackable_associations(auth_object = nil)
+    ["hashtags", "likes", "replies", "retweets", "user"]
+  end
 end
